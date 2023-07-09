@@ -16,5 +16,5 @@ class LoggingMiddleware:
 
         # Code to be executed for each request/response after
         # the view is called.
-        logger.info(response)
+        logger.info(response.content)
         return response
