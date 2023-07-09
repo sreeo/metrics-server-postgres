@@ -25,6 +25,13 @@ certificatesResolvers:
       httpChallenge:
         entryPoint: web
 
+middlewares:
+  api-no-redirect:
+    # Path prefix rule to exclude the API endpoint from redirect
+    stripPrefix:
+      prefixes:
+        - "/api/airquality/"
+
 http:
   routers:
     web-secure-router-api:
@@ -33,6 +40,7 @@ http:
         - web-secure
       middlewares:
         - csrf
+        - api-no-redirect
       service: django
       tls:
         certResolver: letsencrypt
