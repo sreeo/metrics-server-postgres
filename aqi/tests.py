@@ -35,11 +35,20 @@ class AirQualityViewSetTestCase(APITestCase):
     def test_create_air_quality_record(self):
         import uuid
         data = {
-            'pm2_5_value': 35.0,
-            'pm10_value': 50.0,
-            'source_id': uuid.uuid4(),
+            "pm2_5_value": 35.0,
+            "pm10_value": 50.0,
+            "source_id": uuid.uuid4(),
         }
-        response = self.client.post(reverse('api:airquality-list'), data=data)
+        response = self.client.post('/api/airquality/', data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(AirQuality.objects.count(), 2)
+
+    def test_create_air_quality_record_with_invalid_payload(self):
+        import uuid
+        data = '{"pm2_5_value": "\
+43.20","pm10_value": "9.90","source_id": "01893941-73eb-ad05-a57b-f23c971bea61"}'
+        response = self.client.post('/api/airquality/', data, content_type='application/json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AirQuality.objects.count(), 2)
