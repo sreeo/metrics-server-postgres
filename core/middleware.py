@@ -11,6 +11,8 @@ class LoggingMiddleware:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
         logger.info(request.body)
+        logger.info('Request data')
+        logger.info(request.data)
 
         response = self.get_response(request)
 
