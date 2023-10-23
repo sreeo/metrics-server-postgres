@@ -9,7 +9,7 @@ from .serializers import AirQualitySerializer
 
 class AirQualityViewSet(viewsets.ModelViewSet):
     permission_classes = []
-    queryset = AirQuality.objects.all()
+    queryset = AirQuality.objects.all().order_by('-created_at')
     serializer_class = AirQualitySerializer
 
     def create(self, request, *args, **kwargs):
