@@ -2,10 +2,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class LoggingMiddleware:
     def __init__(self, get_response):
-            self.get_response = get_response
-            # One-time configuration and initialization.
+        self.get_response = get_response
+        # One-time configuration and initialization.
 
     def __call__(self, request):
         # Code to be executed for each request before
