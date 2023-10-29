@@ -1,4 +1,4 @@
-FROM timescale/timescaledb:latest-pg14
+FROM timescale/timescaledb:latest-pg15
 
 COPY ./compose/production/postgres/maintenance /usr/local/bin/maintenance
 RUN chmod +x /usr/local/bin/maintenance/*
