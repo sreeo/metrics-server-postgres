@@ -158,7 +158,7 @@ LOGGING = {
         "django.db.backends": {
             "level": "ERROR",
             "handlers": ["console"],
-            "propagate": False,
+            "propagate": True,
         },
         # Errors logged by the SDK itself
         "sentry_sdk": {"level": "ERROR", "handlers": ["console"], "propagate": False},

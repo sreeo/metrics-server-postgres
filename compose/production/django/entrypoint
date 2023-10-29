@@ -28,7 +28,7 @@ while True:
             dbname="${POSTGRES_DB}",
             user="${POSTGRES_USER}",
             password="${POSTGRES_PASSWORD}",
-            host="${POSTGRES_HOST}",
+            host="${DJANGO_DB_HOST}",
             port="${POSTGRES_PORT}",
         )
         break
