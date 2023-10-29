@@ -29,7 +29,7 @@ services:
     image: metrics_production_postgres
     container_name: metrics_local_postgres
     volumes:
-      - metrics_local_postgres_data:/var/lib/postgresql/data
+      - metrics_local_postgres_data:/home/postgres/pgdata/data
       - metrics_local_postgres_data_backups:/backups
     ports:
       - '5432:5432'

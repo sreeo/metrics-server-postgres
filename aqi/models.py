@@ -1,12 +1,12 @@
 from django.db import models
-from core import BaseModel
+from django.utils.timezone import now
 
-from django.db import models
 
-class AirQuality(BaseModel):
+class AirQuality(models.Model):
     pm2_5_value = models.FloatField()
     pm10_value = models.FloatField()
     source_id = models.UUIDField()
+    created_at = models.DateTimeField(default=now, primary_key=True)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ["created_at"]
