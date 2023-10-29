@@ -13,6 +13,7 @@ services:
     container_name: metrics_local_django
     depends_on:
       - postgres
+      - pgbouncer
     volumes:
       - .:/app:z
     env_file:
@@ -31,10 +32,17 @@ services:
     volumes:
       - metrics_local_postgres_data:/home/postgres/pgdata/data
       - metrics_local_postgres_data_backups:/backups
-    ports:
-      - '5432:5432'
     env_file:
       - ./.envs/.local/.postgres
+
+  pgbouncer:
+    image: edoburu/pgbouncer
+    env_file:
+       - ./.envs/.local/.postgres
+    ports:
+      - "5432:5432"
+    depends_on:
+      - postgres
 
   docs:
     image: metrics_local_docs

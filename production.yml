@@ -15,6 +15,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - pgbouncer
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
@@ -30,6 +31,16 @@ services:
       - production_postgres_data_backups:/backups
     env_file:
       - ./.envs/.production/.postgres
+
+  pgbouncer:
+    image: edoburu/pgbouncer
+    env_file:
+       - ./.envs/.production/.postgres
+    ports:
+      - "5432:5432"
+    depends_on:
+      - postgres
+
 
   traefik:
     build:
