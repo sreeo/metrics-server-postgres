@@ -3,6 +3,7 @@ version: '3'
 volumes:
   metrics_local_postgres_data: {}
   metrics_local_postgres_data_backups: {}
+  production_postgres_data_pg: {}
 
 services:
   django:
@@ -32,6 +33,7 @@ services:
     volumes:
       - metrics_local_postgres_data:/home/postgres/pgdata/data
       - metrics_local_postgres_data_backups:/backups
+      - production_postgres_data_pg:/var/lib/postgresql/data
     env_file:
       - ./.envs/.local/.postgres
 

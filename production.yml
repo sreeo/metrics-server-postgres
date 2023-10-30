@@ -4,6 +4,7 @@ volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
   production_traefik: {}
+  production_postgres_data_pg: {}
 
 services:
   django:
@@ -29,6 +30,7 @@ services:
     volumes:
       - production_postgres_data:/home/postgres/pgdata/data
       - production_postgres_data_backups:/backups
+      - production_postgres_data_pg:/var/lib/postgresql/data
     env_file:
       - ./.envs/.production/.postgres
 
