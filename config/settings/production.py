@@ -86,7 +86,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool("DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", def
 # # # STATIC
 # # # ------------------------
 # # STATICFILES_STORAGE = "metrics.utils.storages.StaticRootS3Boto3Storage"
-# # COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
+# COLLECTFAST_STRATEGY = "django.core.files.storage.FileSystemStorage"
 # # STATIC_URL = f"https://{aws_s3_domain}/static/"
 # # # MEDIA
 # # # ------------------------------------------------------------------------------
