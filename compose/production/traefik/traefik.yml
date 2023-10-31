@@ -33,19 +33,12 @@ http:
       tls:
         certResolver: letsencrypt
     web-non-secure-router-api:
-      rule: 'Host(`metrics.sreeraj.dev`) && (PathPrefix(`/api/airquality`))'
+      rule: 'Host(`metrics.sreeraj.dev`)'
       entryPoints:
         - web
       middlewares:
         - csrf
       service: django
-    web-secure-router:
-      rule: 'Host(`metrics.sreeraj.dev`)'
-      entryPoints:
-        - web-secure
-      service: frontend
-      tls:
-        certResolver: letsencrypt
 
   middlewares:
     csrf:

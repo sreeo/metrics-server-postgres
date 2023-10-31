@@ -1,7 +1,4 @@
-import json
-import re
-
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 

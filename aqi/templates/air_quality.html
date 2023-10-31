@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <head>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+          rel="stylesheet" />
     <style>
-        html,body {
-            font-family: 'Ubuntu', sans-serif;
-            background-color: rgb(195, 219, 155);
-            height: 100%;
+      html,
+      body {
+        font-family: 'Ubuntu', sans-serif;
+        background-color: rgb(195, 219, 155);
+        height: 100%;
 
-        }
+      }
 
-        /* Define a CSS class for the component */
-        .data-row {
-            transition: box-shadow 0.3s; /* Add a smooth transition effect */
-        }
+      /* Define a CSS class for the component */
+      .data-row {
+        transition: box-shadow 0.3s;
+        /* Add a smooth transition effect */
+      }
 
-        /* Add the shadow effect on hover */
-        .data-row:hover {
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* Adjust the shadow values as needed */
-        }
+      /* Add the shadow effect on hover */
+      .data-row:hover {
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+        /* Adjust the shadow values as needed */
+      }
 
-        .title {
-            color: gray;
-        }
+      .title {
+        color: gray;
+      }
 
-        .title.is-3 {
-            color: black;
-        }
+      .title.is-3 {
+        color: black;
+      }
 
-        .box {
-            background-color:honeydew;
-        }
-
+      .box {
+        background-color: honeydew;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="block">
-        <br/>
-        <h1 class="has-text-centered title is-3">Air Quality Dashboard</h1>
+      <br />
+      <h1 class="has-text-centered title is-3">Air Quality Dashboard</h1>
     </div>
     <div class="container">
-        {% for data in air_quality_data %}
+      {% for data in air_quality_data %}
         <div class="block data-row">
-            <div class="box">                    
-                <div class = "block"><h2 class="has-text-centered title is-6">{{ data.source.name }}</h2></div>
-                <div class="columns">
-                    <div class="column">
-                        <div class="box" style="background-color: {% if data.pm2_5_value_avg < 50 %}lightgreen{% elif data.pm2_5_value_avg < 100 %}sandybrown{% else %}tomato{% endif %}">
-                            <p class="title is-6">PM2.5: {{ data.pm2_5_value_avg }}</p>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="box" style="background-color: {% if data.pm10_value_avg < 50 %}lightgreen{% elif data.pm10_value_avg < 100 %}sandybrown{% else %}tomato{% endif %}">
-                            <p class="title is-6">PM10: {{ data.pm10_value_avg }}</p>
-                        </div>
-                    </div>
-                </div>
+          <div class="box">
+            <div class = "block">
+              <h2 class="has-text-centered title is-6">{{ data.source.name }}</h2>
             </div>
+            <div class="columns">
+              <div class="column">
+                <div class="box"
+                     style="background-color: {% if data.pm2_5_value_avg < 50 %}lightgreen{% elif data.pm2_5_value_avg < 100 %}sandybrown{% else %}tomato{% endif %}">
+                  <p class="title is-6">PM2.5: {{ data.pm2_5_value_avg }}</p>
+                </div>
+              </div>
+              <div class="column">
+                <div class="box"
+                     style="background-color: {% if data.pm10_value_avg < 50 %}lightgreen{% elif data.pm10_value_avg < 100 %}sandybrown{% else %}tomato{% endif %}">
+                  <p class="title is-6">PM10: {{ data.pm10_value_avg }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
-</body>
+  </body>
 </html>
