@@ -23,7 +23,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router-api:
-      rule: 'Host(`metrics.sreeraj.dev`) && (PathPrefix(`/api/`) || PathPrefix(`/admin/`))'
+      rule: 'Host(`metrics.sreeraj.dev`)'
       entryPoints:
         - web-secure
         - web
