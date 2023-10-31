@@ -15,13 +15,6 @@ class AirQualityViewSet(viewsets.ModelViewSet):
     queryset = AirQuality.objects.all().order_by("-created_at")
     serializer_class = AirQualitySerializer
 
-    def create(self, request, *args, **kwargs):
-        data = re.sub(r"[\n\r]", "", request.body.decode("utf-8"))
-        serializer = self.serializer_class(data=json.loads(data))
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     # Disable other methods by raising a MethodNotAllowed exception
     def retrieve(self, request, *args, **kwargs):
         raise MethodNotAllowed("GET")

@@ -112,6 +112,7 @@ class AirQualityViewSetTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_create_air_quality_record(self):
+        self.deleteAll()
         data = {
             "pm2_5_value": 35.0,
             "pm10_value": 50.0,
@@ -120,12 +121,4 @@ class AirQualityViewSetTestCase(APITestCase):
         response = self.client.post("/api/airquality/", data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(AirQuality.objects.count(), 2)
-
-    def test_create_air_quality_record_with_invalid_payload(self):
-        data = '{"pm2_5_value": "\
-43.20","pm10_value": "9.90","source_id": "01893941-73eb-ad05-a57b-f23c971bea61"}'
-        response = self.client.post("/api/airquality/", data, content_type="application/json")
-
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(AirQuality.objects.count(), 2)
+        self.assertEqual(AirQuality.objects.count(), 1)
