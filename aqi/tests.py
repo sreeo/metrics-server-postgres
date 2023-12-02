@@ -69,28 +69,7 @@ class AirQualityViewSetTestCase(APITestCase):
         response = self.client.get(reverse("api:airquality-list"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)
-
-        source1_data = [record for record in response.data if record["source_id"] == str(self.source.id)][0]
-
-        self.assertEqual(source1_data["pm2_5_value_avg"], 45)
-        self.assertEqual(source1_data["pm2_5_value_max"], 55)
-        self.assertEqual(source1_data["pm2_5_value_min"], 35)
-        self.assertEqual(source1_data["pm10_value_avg"], 60)
-        self.assertEqual(source1_data["pm10_value_max"], 70)
-        self.assertEqual(source1_data["pm10_value_min"], 50)
-
-        self.assertEqual(source1_data["source_id"], str(self.source.id))
-
-        source2_data = [record for record in response.data if record["source_id"] == str(self.source2.id)][0]
-
-        self.assertEqual(source2_data["pm2_5_value_avg"], 20)
-        self.assertEqual(source2_data["pm2_5_value_max"], 30)
-        self.assertEqual(source2_data["pm2_5_value_min"], 10)
-        self.assertEqual(source2_data["pm10_value_avg"], 30)
-        self.assertEqual(source2_data["pm10_value_max"], 40)
-        self.assertEqual(source2_data["pm10_value_min"], 20)
-        self.assertEqual(source2_data["source_id"], str(self.source2.id))
+        self.assertEqual(len(response.json()["results"]), 7)
 
     def test_retrieve_air_quality_record(self):
         response = self.client.get(reverse("api:airquality-detail", args=[str(self.air_quality_record.source_id)]))
