@@ -1,10 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.exceptions import MethodNotAllowed
-from rest_framework.response import Response
 
-from aqi.models import AirQuality, PMMetricsSummaryHourlyView
+from aqi.models import AirQuality
 
-from .serializers import AirQualitySerializer, AirQualitySummarySerializer
+from .serializers import AirQualitySerializer
 
 
 class AirQualityViewSet(viewsets.ModelViewSet):
@@ -24,8 +23,3 @@ class AirQualityViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         raise MethodNotAllowed("DELETE")
-
-    def list(self, request, *args, **kwargs):
-        queryset = PMMetricsSummaryHourlyView.objects.order_by("source_id", "-bucket").distinct("source_id")
-        serializer = AirQualitySummarySerializer(queryset, many=True)
-        return Response(serializer.data)
