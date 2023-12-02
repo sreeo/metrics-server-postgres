@@ -1,6 +1,5 @@
 from rest_framework import viewsets
 from rest_framework.exceptions import MethodNotAllowed
-from rest_framework.response import Response
 
 from aqi.models import AirQuality
 
@@ -24,4 +23,3 @@ class AirQualityViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         raise MethodNotAllowed("DELETE")
-

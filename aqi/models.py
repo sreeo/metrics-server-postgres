@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
 
-from source.models import Source
-
 
 class AirQuality(models.Model):
     pm2_5_value = models.FloatField()
@@ -12,4 +10,3 @@ class AirQuality(models.Model):
 
     class Meta:
         ordering = ["created_at"]
-
