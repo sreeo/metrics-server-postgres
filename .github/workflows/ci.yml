@@ -73,3 +73,4 @@ jobs:
           create_credentials_file: true
           workload_identity_provider: 'projects/448155317007/locations/global/workloadIdentityPools/github-action-pool/providers/github-actions'
           service_account: '448155317007-compute@developer.gserviceaccount.com'
+          project_id : 'green-link-406906'
