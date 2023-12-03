@@ -57,6 +57,12 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
   && rm -rf /wheels/
 
 
+# copy application code to WORKDIR
+COPY --chown=django:django . ${APP_HOME}
+
+# make django owner of the WORKDIR directory as well.
+RUN chown django:django ${APP_HOME}
+
 COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
@@ -67,11 +73,6 @@ RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
 
-# copy application code to WORKDIR
-COPY --chown=django:django . ${APP_HOME}
-
-# make django owner of the WORKDIR directory as well.
-RUN chown django:django ${APP_HOME}
 
 USER django
 

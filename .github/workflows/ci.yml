@@ -85,7 +85,7 @@ jobs:
         run: "gcloud auth configure-docker asia-south1-docker.pkg.dev"
       
       - name: "Docker build"
-        run: "docker build --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:{{ github.run_number }} compose/production/django/ "
+        run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:0.0.1"
       
       - name: "Docker push"
         run: "docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:{{ github.run_number }}"
