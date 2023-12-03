@@ -74,3 +74,18 @@ jobs:
           workload_identity_provider: 'projects/448155317007/locations/global/workloadIdentityPools/github-action-pool/providers/github-actions'
           service_account: '448155317007-compute@developer.gserviceaccount.com'
           project_id : 'green-link-406906'
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+  
+      - name: "Use gcloud CLI"
+        run: "gcloud info"
+      
+      - name: "Setup docker auth"
+        run: "gcloud auth configure-docker asia-south1-docker.pkg.dev"
+      
+      - name: "Docker build"
+        run: "docker build . -f compose/production/django/  --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:{{ github.run_number }}"
+      
+      - name: "Docker push"
+        run: "docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:{{ github.run_number }}"
