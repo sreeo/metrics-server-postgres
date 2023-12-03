@@ -6,10 +6,9 @@ env:
   COMPOSE_DOCKER_CLI_BUILD: 1
 
 on:
-  pull_request:
+  push:
     branches: ['main']
     paths-ignore: ['docs/**']
-
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -51,3 +50,37 @@ jobs:
 
       - name: Tear down the Stack
         run: docker-compose -f local.yml down
+  
+  build:
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      TAG: ${{ github.run_number }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+  
+      - name: "Use gcloud CLI"
+        run: "gcloud info"
+      
+      - name: "Setup docker auth"
+        run: "gcloud auth configure-docker asia-south1-docker.pkg.dev"
+      
+      - name: "Docker build"
+        run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
+      
+      - name: "Docker push"
+        run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
