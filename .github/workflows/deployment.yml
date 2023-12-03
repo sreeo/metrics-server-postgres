@@ -50,7 +50,7 @@ jobs:
 
       - name: Tear down the Stack
         run: docker-compose -f local.yml down
-  
+
   build:
     permissions:
       id-token: write
@@ -72,15 +72,15 @@ jobs:
 
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v1"
-  
+
       - name: "Use gcloud CLI"
         run: "gcloud info"
-      
+
       - name: "Setup docker auth"
         run: "gcloud auth configure-docker asia-south1-docker.pkg.dev"
-      
+
       - name: "Docker build"
         run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
-      
+
       - name: "Docker push"
         run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
