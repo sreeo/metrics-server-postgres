@@ -33,7 +33,6 @@ jobs:
   # With no caching at all the entire ci process takes 4m 30s to complete!
   pytest:
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: Checkout Code Repository
