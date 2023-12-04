@@ -91,12 +91,13 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
       - uses: actions-hub/kubectl@master
-        run: |-
-          gcloud auth configure-docker &&
-          kubectl set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG
-
       - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
           credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}     
+        run: |-
+          gcloud auth configure-docker &&
+          kubectl set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG
+
+      
