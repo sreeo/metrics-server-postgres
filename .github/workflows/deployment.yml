@@ -76,11 +76,11 @@ jobs:
       - name: "Use gcloud CLI"
         run: "gcloud info"
 
-      - name: "Docker build"
-        run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
+      # - name: "Docker build"
+      #   run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
 
-      - name: "Docker push"
-        run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
+      # - name: "Docker push"
+      #   run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
       
       - name: "Setup GKE auth"
         uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
@@ -91,6 +91,6 @@ jobs:
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
-        run: kubectl set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG && kubectl rollout restart deployment django -n application
+        run: kubectl get pods -n application && kubectl set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:12 && kubectl rollout restart deployment django -n application
 
       
