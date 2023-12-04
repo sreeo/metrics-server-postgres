@@ -89,13 +89,8 @@ jobs:
           location: ${{ secrets.GKE_ZONE }}
           credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}     
 
-      - name: "Authenticate k8s"
-        run: "gcloud auth configure-docker"
-        
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
-        uses: actions-hub/kubectl@master
-        with:    
-          args: set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG
+        run: kubectl set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG && kubectl rollout restart deployment django -n application
 
       
