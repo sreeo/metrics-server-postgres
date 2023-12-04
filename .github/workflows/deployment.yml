@@ -74,7 +74,7 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v1"
 
       - name: "Use gcloud CLI"
-        run: "gcloud info"
+        run: "gcloud info && gcloud components install kubectl && gcloud components install gke-gcloud-auth-plugin && gcloud container clusters get-credentials metrics-cluster --region=asia-south1"
 
       # - name: "Docker build"
       #   run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
@@ -82,12 +82,12 @@ jobs:
       # - name: "Docker push"
       #   run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
       
-      - name: "Setup GKE auth"
-        uses: google-github-actions/get-gke-credentials@v1
-        with:
-          cluster_name: 'metrics-cluster'
-          location: 'asia-south1'
-          credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}     
+      # - name: "Setup GKE auth"
+      #   uses: google-github-actions/get-gke-credentials@v1
+      #   with:
+      #     cluster_name: 'metrics-cluster'
+      #     location: 'asia-south1'
+      #     credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}     
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
