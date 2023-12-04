@@ -84,10 +84,8 @@ jobs:
         with:
           cluster_name: 'metrics-cluster'
           location: 'asia-south1'
-          credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}     
+          credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: kubectl get pods -n application && kubectl set image deployment/django django=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG -n application && kubectl rollout restart deployment django -n application
-
-      
