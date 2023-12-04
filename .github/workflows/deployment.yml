@@ -74,7 +74,7 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v1"
 
       - name: "Use gcloud CLI"
-        run: "gcloud info && gcloud components install kubectl && gcloud components install gke-gcloud-auth-plugin && gcloud container clusters get-credentials metrics-cluster --region=asia-south1"
+        run: "gcloud info && gcloud components install kubectl && gcloud components install gke-gcloud-auth-plugin && gcloud container clusters get-credentials metrics-cluster --region=asia-south1 && kubectl get namespaces"
 
       # - name: "Docker build"
       #   run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
