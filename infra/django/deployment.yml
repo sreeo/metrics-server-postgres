@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  namespace: application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:20
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - secretRef:
+            name: django-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        command: ["/entrypoint"]
+        args: ["/start"]
+        
