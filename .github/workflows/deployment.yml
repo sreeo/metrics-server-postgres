@@ -80,13 +80,7 @@ jobs:
         run: "docker build . -f compose/production/django/Dockerfile --tag=asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
 
       - name: "Docker push"
-        run: "gcloud auth configure-docker && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
-        # Get the GKE credentials so we can deploy to the cluster
-      - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-        with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: ${{ env.GKE_ZONE }}
-          credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}      
+        run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
 
       # Set up kustomize
       - name: Set up Kustomize
@@ -97,7 +91,13 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
+          gcloud auth configure-docker &&
           ./kustomize edit set image asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/django
           kubectl get services -o wide
+      - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}     
