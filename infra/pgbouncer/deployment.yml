@@ -51,7 +51,7 @@ spec:
           - "--port=5432"
           - "green-link-406906:asia-south1:metrics-db"
           - "--credentials-file=/secrets/service_account.json"
-        
+
         volumeMounts:
         - name: service-account-secret
           mountPath: /secrets/
@@ -65,4 +65,3 @@ spec:
       - name: service-account-secret
         secret:
           secretName: service-account-secret
-        

@@ -30,4 +30,3 @@ spec:
             cpu: "1"
         command: ["/entrypoint"]
         args: ["/start"]
-        
