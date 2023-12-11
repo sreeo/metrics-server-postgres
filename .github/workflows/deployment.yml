@@ -81,7 +81,7 @@ jobs:
         run: "gcloud auth configure-docker asia-south1-docker.pkg.dev && docker push asia-south1-docker.pkg.dev/green-link-406906/metrics-django/django:$TAG"
 
       - name: "Setup GKE auth"
-        uses: google-github-actions/get-gke-credentials@v1
+        uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: 'metrics-cluster'
           location: 'asia-south1'
